@@ -6,6 +6,7 @@
 #include "DrzewoBST.h"
 #include <iostream>
 #include <vector>
+#include "ObslugaPlikow.h"
 
 using namespace std;
 
@@ -97,6 +98,25 @@ int main() {
     cout << "\n 14. Dodawanie po wyczyszczeniu \n";
     drzewo.dodaj(5);
     drzewo.wyswietl(1);
+
+    cout << "\n=== Test pliku binarnego ===\n";
+
+    ObslugaPlikow pliki;
+
+    if (pliki.zapiszBinarnie(drzewo, "drzewo_test.bin")) {
+        cout << "Zapisano plik binarny\n";
+
+        drzewo.wyczysc();
+
+        if (pliki.wczytajBinarnie(
+            drzewo,
+            "drzewo_test.bin",
+            false
+        )) {
+            cout << "Drzewo po odczycie:\n";
+            drzewo.wyswietl(1);
+        }
+    }
 
     return 0;
 }
