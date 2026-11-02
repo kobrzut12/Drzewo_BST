@@ -4,9 +4,15 @@
  */
 
 #include "DrzewoBST.h"
+#include<vector>
+#include<iostream>
+#include<string>
+#include<fstream>
+using namespace std;
+///Konstruktor pusty
+DrzewoBST::DrzewoBST() {}
 
-
-/// Dodaje liczbe do drzewa BST.
+/// Dodaje liczbę do drzewa BST.
 bool DrzewoBST::dodaj(int wartosc) {
  int aktualny = korzen;
  int rodzic = -1;
@@ -42,7 +48,7 @@ bool DrzewoBST::dodaj(int wartosc) {
  return true;
 }
 
-///Usuwa liczbe z drzewa.
+///Usuwa liczbę z drzewa.
 bool DrzewoBST::usun(int wartosc) {
  int aktualny = korzen;
  int rodzic = -1;
@@ -104,4 +110,106 @@ if (wezly[aktualny].lewy!=-1 && wezly[aktualny].prawy!=-1) {
 
  return true;
 }
+
+
+/// Usuwa wszystkie węzły drzewa.
+void DrzewoBST::wyczysc() {
+ wezly.clear();
+ korzen=-1;
+}
+
+
+ /// Metoda szuka drogi od korzenia do podanej liczby.
+vector<int> DrzewoBST::drogaDo(int wartosc) const {
+ vector<int>droga;
+ int aktualny=korzen;
+
+ while (aktualny!=-1) {
+  droga.push_back(wezly[aktualny].wartosc);
+  if (wartosc==wezly[aktualny].wartosc) {
+   return droga;
+  }
+  if (wartosc<wezly[aktualny].wartosc) {
+   aktualny=wezly[aktualny].lewy;
+  }
+  else {
+   aktualny=wezly[aktualny].prawy;
+  }
+ }
+ droga.clear();
+ return droga;
+}
+
+
+void DrzewoBST::wypiszDrzewo(ostream& wyjscie, int metoda) const {
+ if (metoda < 1 || metoda > 3) return;
+ if (korzen == -1) {
+  wyjscie << "puste drzewo\n";
+  return;
+ }
+
+ if (metoda == 1) wyjscie << "Preorder\n";
+ if (metoda == 2) wyjscie << "Inorder\n";
+ if (metoda == 3) wyjscie << "Postorder\n";
+ wyjscie << "K - korzen, L - lewe dziecko, P - prawe dziecko\n";
+
+ wypiszRekurencyjnie(korzen, wyjscie, metoda, 0, 'K');
+}
+///Metoda do wypisywania rekurencyjnie węzłów drzewa.
+void DrzewoBST::wypiszRekurencyjnie(int aktualny, ostream& wyjscie, int metoda, int poziom, char strona) const {
+ if (aktualny == -1) {
+  return;
+ }
+
+ if (metoda == 1) {
+  for (int i = 0; i < poziom; i++) wyjscie << "    ";
+  wyjscie << '[' << strona << "] " << wezly[aktualny].wartosc << '\n';
+ }
+
+ wypiszRekurencyjnie(wezly[aktualny].lewy, wyjscie, metoda, poziom + 1, 'L');
+
+ if (metoda == 2) {
+  for (int i = 0; i < poziom; i++) wyjscie << "    ";
+  wyjscie << '[' << strona << "] " << wezly[aktualny].wartosc << '\n';
+ }
+
+ wypiszRekurencyjnie(wezly[aktualny].prawy, wyjscie, metoda, poziom + 1, 'P');
+
+ if (metoda == 3) {
+  for (int i = 0; i < poziom; i++) wyjscie << "    ";
+  wyjscie << '[' << strona << "] " << wezly[aktualny].wartosc << '\n';
+ }
+}
+
+///Metoda wyświetla drzewo w terminalu.
+void DrzewoBST::wyswietl(int metoda) const {
+ wypiszDrzewo(cout,metoda);
+}
+
+///Metoda zapisuje tekstowo drzewo w pliku.
+void DrzewoBST::zapiszTekstowo(string nazwaPliku, int metoda) const {
+ if (metoda<1 || metoda>3) {
+  cout<<"Nieprawidlowa metoda\n";
+  return;
+ }
+ ofstream plik(nazwaPliku);
+ if (!plik) {
+  cout<<"Nie mozna otworzyc pliku do zapisu\n";
+  return;
+ }
+ wypiszDrzewo(plik,metoda);
+ plik.close();
+ if (!plik) {
+  cout<<"Blad zapisu do pliku\n";
+  return;
+ }else{
+  cout<<"Zapisano drzewo do pliku\n";
+ return;
+}
+}
+
+
+
+
+
 
