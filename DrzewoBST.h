@@ -6,45 +6,46 @@
 #ifndef DRZEWO_BST_H
 #define DRZEWO_BST_H
 
-#include <vector>
-#include <string>
-
+#include<vector>
+#include<string>
+#include<iostream>
 /**
- * @brief Binarne drzewo poszukiwan liczb calkowitych.
- *
- * Wezly sa przechowywane w kontenerze vector.
- * Dzieci wezla wskazujemy przez indeksy.
- * Indeks -1 oznacza brak wezla.
+ * @brief Binarne drzewo poszukiwań liczb całkowitych.
+ * Węzły są przechowywane w kontenerze vector.
+ * Dzieci węzła wskazujemy przez indeksy.
+ * Indeks -1 oznacza brak węzła.
  */
 class DrzewoBST {
 private:
-    /** @brief Dane pojedynczego wezla drzewa. */
+    /** @brief Dane pojedyńczego węzła drzewa. */
     struct Wezel {
         int wartosc = 0;
         int lewy = -1;
         int prawy = -1;
     };
 
-    /** @brief Kontener przechowujacy wezly drzewa. */
-    vector<Wezel> wezly;
+    /** @brief Kontener przechowujący węzły drzewa. */
+    std::vector<Wezel> wezly;
 
     /** @brief Indeks korzenia; -1 oznacza puste drzewo. */
     int korzen = -1;
+    /**@brief metoda służy do wypisywania rekurencyjnego. */
+    void wypiszRekurencyjnie(int aktualny, std::ostream& wyjscie, int metoda, int poziom, char strona) const;
 
-    public:
+public:
     ///Konstruktor pusty klasy DrzewoBST.
     DrzewoBST();
     /**
-     * @brief Dodaje liczbe do drzewa.
+     * @brief Dodaje liczbę do drzewa.
      * @param wartosc Liczba do dodania.
-     * @return true, jezeli dodano liczbe - false, jesli juz istnieje.
+     * @return true, jeżeli dodano liczbę - false, jeśli już istnieje.
      */
     bool dodaj(int wartosc);
 
     /**
-     * @brief Usuwa liczbe z drzewa.
-     * @param wartosc Liczba do usuniecia.
-     * @return true, jezeli usunieto liczbe; false, jesli jej nie znaleziono.
+     * @brief Usuwa liczbę z drzewa.
+     * @param wartosc Liczba do usunięcia.
+     * @return true, jeżeli usunięto liczbę; false, jeśli jej nie znaleziono.
      */
     bool usun(int wartosc);
 
@@ -56,12 +57,12 @@ private:
     /**
      * @brief Szuka drogi od korzenia do podanej liczby.
      * @param wartosc Szukana liczba.
-     * @return Kolejne liczby na drodze lub pusty vector, jesli brak liczby.
+     * @return Kolejne liczby na drodze lub pusty vector, jeśli brak liczby.
      */
-    vector<int> drogaDo(int wartosc) const;
+    std::vector<int> drogaDo(int wartosc) const;
 
     /**
-     * @brief Wyswietla drzewo na ekranie.
+     * @brief Wyświetla drzewo na ekranie.
      * @param metoda 1 - preorder, 2 - inorder, 3 - postorder.
      */
     void wyswietl(int metoda) const;
@@ -71,9 +72,13 @@ private:
      * @param nazwaPliku Nazwa pliku wynikowego.
      * @param metoda 1 - preorder, 2 - inorder, 3 - postorder.
      */
-    void zapiszTekstowo(string nazwaPliku, int metoda) const;
+    void zapiszTekstowo(std::string nazwaPliku, int metoda) const;
 
-
+    /**
+     *@brief Wypisuje rysunek drzewa do wskazanego strumienia.
+     *@param wyjscie Ekran lub otwarty plik tekstowy.
+    * @param metoda 1 - preorder, 2 - inorder, 3 - postorder.
+    */
+    void wypiszDrzewo(std::ostream& wyjscie, int metoda)const;
 };
-
 #endif
