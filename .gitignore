@@ -3,3 +3,4 @@ build/
 *.obj
 *.exe
 .vs/
+/CMakeLists.txt
