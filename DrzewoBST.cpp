@@ -207,9 +207,24 @@ void DrzewoBST::zapiszTekstowo(string nazwaPliku, int metoda) const {
  return;
 }
 }
+///Służy do tworzenia  wektora wynikowego.
+vector<int> DrzewoBST::pobierzWartosci() const {
+ vector<int> wynik;
+ zbierzWartosci(korzen, wynik);
+ return wynik;
+}
 
+///Służy do zbierania wartośći drzewa.
+void DrzewoBST::zbierzWartosci(int aktualny,vector<int>& wynik) const {
+ if (aktualny == -1) {
+  return;
+ }
 
+ wynik.push_back(wezly[aktualny].wartosc);
 
+ zbierzWartosci(wezly[aktualny].lewy, wynik);
+ zbierzWartosci(wezly[aktualny].prawy, wynik);
+}
 
 
 

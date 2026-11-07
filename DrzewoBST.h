@@ -32,6 +32,12 @@ private:
     /**@brief metoda służy do wypisywania rekurencyjnego. */
     void wypiszRekurencyjnie(int aktualny, std::ostream& wyjscie, int metoda, int poziom, char strona) const;
 
+    /**
+     * @brief Zbiera wartości z kolejnych węzłów drzewa.
+     * @param aktualny Indeks odwiedzanego węzła.
+     * @param wynik Wektor, do którego dopisujemy liczby.
+     */
+    void zbierzWartosci(int aktualny, std::vector<int>& wynik) const;
 public:
     ///Konstruktor pusty klasy DrzewoBST.
     DrzewoBST();
@@ -80,5 +86,11 @@ public:
     * @param metoda 1 - preorder, 2 - inorder, 3 - postorder.
     */
     void wypiszDrzewo(std::ostream& wyjscie, int metoda)const;
+
+    /**
+     *@brief Służy do pobrania wartości drzewa
+     *@return Wektor licz przygotowanych do zapisu.
+     */
+    std::vector<int>pobierzWartosci()const;
 };
 #endif
