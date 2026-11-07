@@ -1,122 +1,115 @@
 /**
- * @file main.cpp
- * @brief Program testujący podstawowe operacje drzewa BST.
+ * @file Main.cpp
+ * @brief Menu podstawowych operacji drzewa BST.
  */
 
 #include "DrzewoBST.h"
 #include <iostream>
 #include <vector>
-#include "ObslugaPlikow.h"
 
 using namespace std;
 
 /**
- * @brief Sprawdza działanie metod klasy DrzewoBST.
- * @return 0 po zakończeniu programu testowego.
+ * @brief Wyświetla menu i wykonuje operacje wybrane przez użytkownika.
+ * @return 0 po zakończeniu programu.
  */
 int main() {
     DrzewoBST drzewo;
+    int wybor;
+    int wartosc;
+    int metoda;
+    vector<int> droga;
 
-    cout << " 1. Puste drzewo \n";
-    drzewo.wyswietl(1);
+    do {
+        cout << "\n=== Drzewo BST ===\n";
+        cout << "1. Dodaj liczbe\n";
+        cout << "2. Usun liczbe\n";
+        cout << "3. Wyczysc drzewo\n";
+        cout << "4. Znajdz droge do liczby\n";
+        cout << "5. Wyswietl drzewo\n";
+        cout << "0. Wyjscie\n";
+        cout << "Wybor: ";
+        cin >> wybor;
 
-    int liczby[] = {8, 3, 10, 1, 6, 14, 4, 7, 13};
-
-    for (int i = 0; i < 9; i++) {
-        drzewo.dodaj(liczby[i]);
-    }
-
-    cout << "\n 2. Preorder \n";
-    drzewo.wyswietl(1);
-
-    cout << "\n 3. Inorder \n";
-    drzewo.wyswietl(2);
-
-    cout << "\n 4. Postorder \n";
-    drzewo.wyswietl(3);
-
-    cout << "\n 5. Droga do liczby 7 \n";
-
-    vector<int> droga = drzewo.drogaDo(7);
-    int dlugosc = droga.size();
-
-    for (int i = 0; i < dlugosc; i++) {
-        if (i > 0) {
-            cout << " -> ";
+        if (!cin) {
+            cout << "Niepoprawne dane\n";
+            return 0;
         }
 
-        cout << droga[i];
-    }
+        switch (wybor) {
+            case 1:
+                cout << "Liczba do dodania: ";
+                cin >> wartosc;
+                if (!cin) return 0;
 
-    cout << '\n';
+                if (drzewo.dodaj(wartosc)) {
+                    cout << "Dodano liczbe\n";
+                } else {
+                    cout << "Ta liczba juz istnieje\n";
+                }
+                break;
 
-    cout << "\n 6. Szukanie liczby 99 \n";
+            case 2:
+                cout << "Liczba do usuniecia: ";
+                cin >> wartosc;
+                if (!cin) return 0;
 
-    droga = drzewo.drogaDo(99);
+                if (drzewo.usun(wartosc)) {
+                    cout << "Usunieto liczbe\n";
+                } else {
+                    cout << "Nie znaleziono liczby\n";
+                }
+                break;
 
-    if (droga.empty()) {
-        cout << "OK: liczby 99 nie ma w drzewie\n";
-    } else {
-        cout << "BLAD: znaleziono liczbe 99\n";
-    }
+            case 3:
+                drzewo.wyczysc();
+                cout << "Wyczyszczono drzewo\n";
+                break;
 
-    cout << "\n 7. Ponowne dodanie liczby 6 \n";
+            case 4:
+                cout << "Szukana liczba: ";
+                cin >> wartosc;
+                if (!cin) return 0;
 
-    if (drzewo.dodaj(6)) {
-        cout << "BLAD: dodano duplikat\n";
-    } else {
-        cout << "OK: duplikat zostal pominiety\n";
-    }
+                droga = drzewo.drogaDo(wartosc);
 
-    cout << "\n 8. Zapis drzewa do pliku \n";
-    drzewo.zapiszTekstowo("drzewo_test.txt", 1);
+                if (droga.empty()) {
+                    cout << "Nie znaleziono liczby\n";
+                } else {
+                    int dlugosc = droga.size();
 
-    cout << "\n 9. Usuniecie liscia 1 \n";
-    drzewo.usun(1);
-    drzewo.wyswietl(1);
+                    for (int i = 0; i < dlugosc; i++) {
+                        if (i > 0) cout << " -> ";
+                        cout << droga[i];
+                    }
 
-    cout << "\n 10. Usuniecie wezla 14 z jednym dzieckiem \n";
-    drzewo.usun(14);
-    drzewo.wyswietl(1);
+                    cout << '\n';
+                }
+                break;
 
-    cout << "\n11. Usuniecie korzenia 8 z dwojgiem dzieci \n";
-    drzewo.usun(8);
-    drzewo.wyswietl(1);
+            case 5:
+                cout << "1 - preorder, 2 - inorder, 3 - postorder\n";
+                cout << "Metoda: ";
+                cin >> metoda;
+                if (!cin) return 0;
 
-    cout << "\n 12. Usuniecie nieistniejacej liczby 99 \n";
+                if (metoda >= 1 && metoda <= 3) {
+                    drzewo.wyswietl(metoda);
+                } else {
+                    cout << "Nieprawidlowa metoda\n";
+                }
+                break;
 
-    if (drzewo.usun(99)) {
-        cout << "BLAD: usunieto nieistniejaca liczbe\n";
-    } else {
-        cout << "OK: brak liczby do usuniecia\n";
-    }
+            case 0:
+                cout << "Koniec programu\n";
+                break;
 
-    cout << "\n13. Wyczyszczenie drzewa \n";
-    drzewo.wyczysc();
-    drzewo.wyswietl(1);
-
-    cout << "\n 14. Dodawanie po wyczyszczeniu \n";
-    drzewo.dodaj(5);
-    drzewo.wyswietl(1);
-
-    cout << "\n=== Test pliku binarnego ===\n";
-
-    ObslugaPlikow pliki;
-
-    if (pliki.zapiszBinarnie(drzewo, "drzewo_test.bin")) {
-        cout << "Zapisano plik binarny\n";
-
-        drzewo.wyczysc();
-
-        if (pliki.wczytajBinarnie(
-            drzewo,
-            "drzewo_test.bin",
-            false
-        )) {
-            cout << "Drzewo po odczycie:\n";
-            drzewo.wyswietl(1);
+            default:
+                cout << "Nie ma takiej opcji\n";
+                break;
         }
-    }
+
+    } while (wybor != 0);
 
     return 0;
 }
