@@ -1,10 +1,12 @@
 /**
  * @file Main.cpp
- * @brief Menu podstawowych operacji drzewa BST.
+ * @brief Menu drzewa BST oraz zapisu i odczytu plików.
  */
 
 #include "DrzewoBST.h"
+#include "ObslugaPlikow.h"
 #include <iostream>
+#include <string>
 #include <vector>
 
 using namespace std;
@@ -15,9 +17,14 @@ using namespace std;
  */
 int main() {
     DrzewoBST drzewo;
+    ObslugaPlikow pliki;
+
     int wybor;
     int wartosc;
     int metoda;
+    int tryb;
+
+    string nazwaPliku;
     vector<int> droga;
 
     do {
@@ -27,6 +34,10 @@ int main() {
         cout << "3. Wyczysc drzewo\n";
         cout << "4. Znajdz droge do liczby\n";
         cout << "5. Wyswietl drzewo\n";
+        cout << "6. Zapisz rysunek drzewa do pliku tekstowego\n";
+        cout << "7. Zapisz drzewo binarnie\n";
+        cout << "8. Wczytaj drzewo binarnie\n";
+        cout << "9. Wczytaj liczby z pliku tekstowego\n";
         cout << "0. Wyjscie\n";
         cout << "Wybor: ";
         cin >> wybor;
@@ -97,6 +108,69 @@ int main() {
                     drzewo.wyswietl(metoda);
                 } else {
                     cout << "Nieprawidlowa metoda\n";
+                }
+                break;
+
+            case 6:
+                cout << "Nazwa pliku tekstowego (bez spacji): ";
+                cin >> nazwaPliku;
+                if (!cin) return 0;
+
+                cout << "1 - preorder, 2 - inorder, 3 - postorder\n";
+                cout << "Metoda: ";
+                cin >> metoda;
+                if (!cin) return 0;
+
+                drzewo.zapiszTekstowo(nazwaPliku, metoda);
+                break;
+
+            case 7:
+                cout << "Nazwa pliku binarnego (bez spacji): ";
+                cin >> nazwaPliku;
+                if (!cin) return 0;
+
+                if (pliki.zapiszBinarnie(drzewo, nazwaPliku)) {
+                    cout << "Zapisano drzewo binarnie\n";
+                }
+                break;
+
+            case 8:
+                cout << "Nazwa pliku binarnego (bez spacji): ";
+                cin >> nazwaPliku;
+                if (!cin) return 0;
+
+                cout << "0 - zastap drzewo, 1 - dolacz dane: ";
+                cin >> tryb;
+                if (!cin) return 0;
+
+                if (tryb == 0 || tryb == 1) {
+                    if (pliki.wczytajBinarnie(
+                        drzewo, nazwaPliku, tryb == 1
+                    )) {
+                        cout << "Wczytano drzewo binarnie\n";
+                    }
+                } else {
+                    cout << "Nieprawidlowy tryb\n";
+                }
+                break;
+
+            case 9:
+                cout << "Nazwa pliku z liczbami (bez spacji): ";
+                cin >> nazwaPliku;
+                if (!cin) return 0;
+
+                cout << "0 - zastap drzewo, 1 - dolacz dane: ";
+                cin >> tryb;
+                if (!cin) return 0;
+
+                if (tryb == 0 || tryb == 1) {
+                    if (pliki.wczytajTekstowo(
+                        drzewo, nazwaPliku, tryb == 1
+                    )) {
+                        cout << "Wczytano liczby z pliku\n";
+                    }
+                } else {
+                    cout << "Nieprawidlowy tryb\n";
                 }
                 break;
 
