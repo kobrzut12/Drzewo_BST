@@ -12,7 +12,7 @@
 using namespace std;
 
 /**
- * @brief Wyświetla menu i wykonuje operacje wybrane przez użytkownika.
+ * @brief Wyświetla menu i operacje przez użytkownika.
  * @return 0 po zakończeniu programu.
  */
 int main() {
