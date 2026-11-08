@@ -115,7 +115,7 @@ bool ObslugaPlikow::wczytajBinarnie(
 }
 
 /**
- * @brief Wczytuje liczby całkowite z pliku tekstowego.
+ * @brief Metoda wczytuje liczby całkowite z pliku tekstowego.
  * @param drzewo Drzewo docelowe.
  * @param nazwaPliku Nazwa pliku zawierającego liczby.
  * @param dolacz true - dołącz dane; false - zastąp obecne drzewo.
