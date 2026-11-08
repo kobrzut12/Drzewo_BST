@@ -135,7 +135,7 @@ int main() {
                 break;
 
             case 8:
-                cout << "Nazwa pliku binarnego (bez spacji): ";
+                cout << "Nazwa pliku binarnego (brak spacji): ";
                 cin >> nazwaPliku;
                 if (!cin) return 0;
 
