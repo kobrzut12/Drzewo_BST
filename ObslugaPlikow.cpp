@@ -50,7 +50,7 @@ bool ObslugaPlikow::zapiszBinarnie(
 
 /**
  * @brief Wczytuje drzewo z pliku binarnego.
- * @param drzewo Drzewo docelowe.
+ * @param drzewo To jest drzewo docelowe.
  * @param nazwaPliku Nazwa pliku wejściowego.
  * @param dolacz true - dołącz dane; false - zastąp obecne drzewo.
  * @return true po poprawnym odczycie; false przy błędzie.
