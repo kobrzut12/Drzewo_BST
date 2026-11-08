@@ -50,7 +50,7 @@ bool ObslugaPlikow::zapiszBinarnie(
 
 /**
  * @brief Wczytuje drzewo z pliku binarnego.
- * @param drzewo To drzewo docelowe.
+ * @param drzewo To jest drzewo docelowe.
  * @param nazwaPliku Nazwa pliku wejściowego.
  * @param dolacz true - dołącz dane; false - zastąp obecne drzewo.
  * @return true po poprawnym odczycie; false przy błędzie.
@@ -63,7 +63,7 @@ bool ObslugaPlikow::wczytajBinarnie(
     ifstream plik(nazwaPliku, ios::binary);
 
     if (!plik) {
-        cout << "Nie otworzyc pliku do odczytu\n";
+        cout << "Nie da sie otworzyc pliku do odczytu\n";
         return false;
     }
 
@@ -115,7 +115,7 @@ bool ObslugaPlikow::wczytajBinarnie(
 }
 
 /**
- * @brief Wczytuje liczby z pliku tekstowego.
+ * @brief Metoda wczytuje liczby całkowite z pliku tekstowego.
  * @param drzewo Drzewo docelowe.
  * @param nazwaPliku Nazwa pliku zawierającego liczby.
  * @param dolacz true - dołącz dane; false - zastąp obecne drzewo.
