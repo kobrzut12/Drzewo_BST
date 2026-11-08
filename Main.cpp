@@ -155,7 +155,7 @@ int main() {
                 break;
 
             case 9:
-                cout << "Nazwa pliku z liczbami (bez spacji): ";
+                cout << "Nazwa pliku z liczbami: ";
                 cin >> nazwaPliku;
                 if (!cin) return 0;
 
