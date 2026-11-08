@@ -63,7 +63,7 @@ bool ObslugaPlikow::wczytajBinarnie(
     ifstream plik(nazwaPliku, ios::binary);
 
     if (!plik) {
-        cout << "Nie mozna otworzyc pliku do odczytu\n";
+        cout << "Nie otworzyc pliku do odczytu\n";
         return false;
     }
 
